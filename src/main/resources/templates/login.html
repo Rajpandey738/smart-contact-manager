@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content}, ~{::title})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <section class="bg-gray-950 min-h-screen flex items-center justify-center px-6" id="content">
+        <div data-th-replace="message :: messageBox"></div>
+        <a th:href="@{/}"
+            class="absolute top-4 left-6 sm:top-10 sm:left-16 text-sm sm:text-lg inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-6">
+
+            <span><i class="fa-solid fa-arrow-left-long"></i></span> Back to Home
+
+        </a>
+        <div class="w-full max-w-md rounded-3xl shadow-2xl p-3 md:p-10">
+
+            <!-- Logo -->
+            <div class="flex justify-center">
+
+                <div
+                    class="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-blue-500/30">
+
+                    S
+
+                </div>
+
+            </div>
+
+            <!-- Heading -->
+            <div class="text-center mt-4">
+
+                <h1 class="text-lg md:text-2xl font-bold text-white">
+                    Welcome Back
+                </h1>
+
+                <p class="mt-1 md:mt-2 text-gray-400 text-[0.77rem] md:text-sm">
+                    Login to your Smart Contact Manager account
+                </p>
+
+            </div>
+
+            <!-- Form -->
+            <form data-th-action="@{'/authenticate'}" method="post" class="mt-6 md:mt-9 space-y-6">
+
+                <!-- Email -->
+                <div>
+
+                    <label class="block text-[0.77rem] md:text-sm font-medium text-gray-300 mb-2 ml-1">
+                        Email Address
+                    </label>
+
+                    <input type="email" id="email" name="email" required placeholder="Enter your email"
+                        class="text-sm w-full bg-gray-950 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none rounded-xl px-5 py-3 text-white transition duration-300">
+
+                </div>
+
+                <!-- Password -->
+                <div>
+
+                    <label class="block text-[0.77rem] md:text-sm font-medium text-gray-300 mb-2 ml-1">
+                        Password
+                    </label>
+
+                    <input type="password" id="password" name="password" required placeholder="Enter your password"
+                        class="text-sm w-full bg-gray-950 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none rounded-xl px-5 py-3 text-white transition duration-300">
+
+                </div>
+
+                <!-- Remember + Forgot -->
+                <div class="flex items-center justify-between">
+
+                    <label class="flex items-center gap-2 text-sm text-gray-400">
+
+                        <input type="checkbox" id="remember" name="remember"
+                            class="w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-500 focus:ring-blue-500">
+
+                        Remember Me
+
+                    </label>
+
+                    <a href="#" class="text-sm text-blue-400 hover:text-blue-300 transition duration-300">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+                <!-- Login Button -->
+                <button
+                    class="text-sm md:text-lg w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-xl font-semibold transition duration-300 shadow-lg shadow-blue-500/20">
+
+                    Login
+
+                </button>
+
+            </form>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-4 my-5 md:my-8">
+
+                <div class="flex-1 h-px bg-gray-700"></div>
+
+                <span class="text-[0.77rem] md:text-sm text-gray-500">
+                    OR
+                </span>
+
+                <div class="flex-1 h-px bg-gray-700"></div>
+
+            </div>
+
+            <!-- Google Login -->
+            <a data-th-href="@{'/oauth2/authorization/google'}"
+                class="text-sm md:text-lg w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-800 py-2 rounded-xl font-semibold transition duration-300">
+
+                <!-- Google Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-5 h-5">
+
+                    <path fill="#FFC107"
+                        d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z" />
+
+                    <path fill="#FF3D00"
+                        d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4c-7.7 0-14.3 4.3-17.7 10.7z" />
+
+                    <path fill="#4CAF50"
+                        d="M24 44c5.2 0 10-2 13.5-5.3l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.5 16.2 44 24 44z" />
+
+                    <path fill="#1976D2"
+                        d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.1-3.3 5.5-6 7.1l6.2 5.2C39.7 36.7 44 31 44 24c0-1.3-.1-2.3-.4-3.5z" />
+
+                </svg>
+
+                Continue with Google
+
+            </a>
+
+            <!-- Signup -->
+            <p class="text-center text-gray-400 text-sm mt-5">
+
+                Don't have an account?
+
+                <a data-th-href="@{'/register'}" class="underline text-blue-400 hover:text-blue-300 font-medium">
+                    Sign Up
+                </a>
+
+            </p>
+
+        </div>
+    </section>
+</body>
+
+</html>

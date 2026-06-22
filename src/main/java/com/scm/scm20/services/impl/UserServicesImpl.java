@@ -1,0 +1,114 @@
+package com.scm.scm20.services.impl;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.scm.scm20.entities.User;
+import com.scm.scm20.forms.ProfileForm;
+import com.scm.scm20.helper.AppConstant;
+import com.scm.scm20.repositories.UserRepo;
+import com.scm.scm20.services.UserService;
+
+@Service
+public class UserServicesImpl implements UserService {
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    // private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Override
+    public User saveUser(User user) {
+
+        // generate random uuid for user id
+        String userId = UUID.randomUUID().toString();
+        user.setUserId(userId);
+
+        // password encoding
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // set default role for user
+        user.setRoleList(List.of(AppConstant.ROLE_USER));
+
+        return userRepo.save(user);
+    }
+
+    @Override
+    public Optional<User> getUserById(String Id) {
+        return userRepo.findById(Id);
+    }
+
+    @Override
+    public Optional<User> updateUser(User user) {
+        User user2 = userRepo.findById(user.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + user.getUserId()));
+        user2.setName(user.getName());
+        user2.setEmail(user.getEmail());
+        // user2.setPassword(user.getPassword());
+        // password encoding
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user2.setAddress(user.getAddress());
+        user2.setPhoneNumber(user.getPhoneNumber());
+        user2.setProfilePic(user.getProfilePic());
+        user2.setEnabled(user.isEnabled());
+        user2.setEmailVerified(user.isEmailVerified());
+        user2.setPhoneVerified(user.isPhoneVerified());
+        user2.setProvider(user.getProvider());
+        user2.setProviderId(user.getProviderId());
+
+        User save = userRepo.save(user2);
+        return Optional.ofNullable(save);
+    }
+
+    @Override
+    public void deleteUser(String Id) {
+        User user2 = userRepo.findById(Id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + Id));
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        User user2 = userRepo.findByEmail(email).orElse(null);
+        return user2 != null ? true : false;
+    }
+
+    @Override
+    public boolean isUserExist(String Id) {
+        User user2 = userRepo.findById(Id).orElse(null);
+        return user2 != null ? true : false;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email).orElse(null);
+    }
+
+    @Override
+    public void updateProfile(ProfileForm profileForm, User user) {
+        User existingUser = userRepo
+                .findById(user.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        existingUser.setName(profileForm.getName());
+        existingUser.setPhoneNumber(profileForm.getPhoneNumber());
+        existingUser.setAddress(profileForm.getAddress());
+        existingUser.setProfilePic(profileForm.getProfilePic());
+
+        userRepo.save(existingUser);
+    }
+
+}

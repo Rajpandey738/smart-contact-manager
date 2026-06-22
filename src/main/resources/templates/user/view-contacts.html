@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::section}, ~{::title})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Contact</title>
+</head>
+
+<body>
+
+    <section id="content" class="min-h-screen p-2 sm:p-4 lg:p-6 bg-gray-950">
+        <div data-th-replace="message :: messageBox"></div>
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div>
+                <h1 class="text-3xl text-white font-bold"><i class="fa-regular fa-address-book"></i> My Contacts</h1>
+                <p class="text-gray-400">Manage and organize all your contacts</p>
+            </div>
+            <a href="/user/add-contact"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-xl font-medium transition">
+
+                <i class="fa-solid fa-plus"></i> Add Contact
+
+            </a>
+        </div>
+
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5 mt-5">
+
+            <h2 class="text-white text-lg font-semibold mb-4">
+                <i class="fa-solid fa-magnifying-glass"></i> Search Contacts
+            </h2>
+
+            <div class="flex flex-col lg:flex-row gap-4">
+
+                <form th:action="@{/user/view-contacts}" method="get" class="flex-1 flex flex-col lg:flex-row gap-4">
+                    <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by Name, Email, Phone"
+                        class="flex-1 bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-blue-500 outline-none">
+
+                    <button type="submit" class="font-medium bg-blue-500 rounded-xl px-4 py-3 text-white">
+                        Search
+                    </button>
+
+                </form>
+
+
+                <select onchange="window.location.href=this.value"
+                    class="bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white">
+
+                    <option th:value="@{/user/view-contacts(filter='all')}" th:selected="${filter == 'all'}">
+                        All Contacts
+                    </option>
+                    <option th:value="@{/user/view-contacts(filter='favorite')}" th:selected="${filter == 'favorite'}">
+                        Favorites
+                    </option>
+                    <option>Recent Contacts</option>
+
+                </select>
+
+            </div>
+
+        </div>
+        <div class="hidden md:block mt-8 bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+
+            <table class="w-full">
+
+                <thead class="bg-gray-800">
+
+                    <tr>
+
+                        <th class="p-4 text-left text-gray-300">Image</th>
+                        <th class="p-4 text-left text-gray-300">Name</th>
+                        <th class="p-4 text-left text-gray-300">Email</th>
+                        <th class="p-4 text-left text-gray-300">Phone</th>
+                        <th class="p-4 text-left text-gray-300">Favorite</th>
+                        <th class="p-4 text-left text-gray-300">Created</th>
+                        <th class="p-4 text-left text-gray-300">Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr class="border-t border-gray-800" th:each="contact : ${contacts}">
+
+                        <td class="p-4">
+                            <img src="https://i.pravatar.cc/50" class="w-10 h-10 rounded-full">
+                        </td>
+
+                        <td class="p-4 text-white" th:text="${contact.name}">
+                        </td>
+
+                        <td class="p-4 text-gray-300" th:text="${contact.email}">
+                        </td>
+
+                        <td class="p-4 text-gray-300" th:text="${contact.phoneNumber}">
+                        </td>
+
+                        <td class="p-4">
+
+                            <a th:href="@{/user/contact/favorite/{id}(id=${contact.contactId})}">
+
+                                <i
+                                    th:class="${contact.favorite} ? 'fa-solid fa-star text-yellow-400' : 'fa-regular fa-star text-gray-500'">
+                                </i>
+
+                            </a>
+
+                        </td>
+
+                        <td class="p-4 text-gray-400">
+                            01 Jun
+                        </td>
+
+                        <td class="p-4">
+
+                            <div class="flex gap-3">
+
+                                <a th:href="@{/user/contact/{id}(id=${contact.contactId})}" class="text-blue-400"><i
+                                        class="fa-solid fa-eye"></i></a>
+                                <a th:href="@{/user/edit-contact/{id}(id=${contact.contactId}, source='view-contacts')}"
+                                    class="text-yellow-400"><i class="fa-solid fa-pen"></i></a>
+                                <!-- <a th:href="@{/user/delete-contact/{id}(id=${contact.contactId})}"
+                                    class="text-red-400"><i class="fa-solid fa-trash"></i></a> -->
+
+                                <!-- Updated version -->
+                                <a href="#" th:data-contact-id="${contact.contactId}"
+                                    class="delete-contact text-red-400"><i class="fa-solid fa-trash"></i>
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="md:hidden mt-8 space-y-4">
+
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5" th:each="contact : ${contacts}">
+
+                <div class="flex items-center justify-between gap-3">
+
+
+                    <div class="flex gap-3 items-center">
+                        <img src="https://i.pravatar.cc/50" class="w-12 h-12 rounded-full">
+                        <div>
+
+                            <h3 class="text-white font-semibold" th:text="${contact.name}">
+                                Rahul Sharma
+                            </h3>
+
+                            <p class="text-gray-400 text-sm" th:text="${contact.email}">
+                                rahul@gmail.com
+                            </p>
+
+                        </div>
+                    </div>
+                    <button class="text-red-400 text-2xl"><i class="fa-solid fa-trash"></i></button>
+
+                </div>
+
+                <p class="text-sm text-gray-300 mt-4 flex items-center gap-2">
+                    <i class="fa-solid fa-mobile-screen-button"></i> <span th:text="${contact.phoneNumber}">+444 097
+                        232</span>
+                </p>
+
+                <div class="flex gap-3 mt-4">
+
+                    <a th:href="@{/user/contact/{id}(id=${contact.contactId})}"
+                        class="flex-1 text-center bg-blue-500 text-white py-2 rounded-lg">
+
+                        View
+
+                    </a>
+
+                    <a th:href="@{/user/edit-contact/{id}(id=${contact.contactId}, source='view-contacts')}"
+                        class="flex-1 text-center bg-yellow-500 text-white py-2 rounded-lg">
+
+                        Edit
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="flex justify-center items-center mt-8 gap-2">
+
+            <a th:if="${currentPage>0}" th:href="@{/user/view-contacts(page=${currentPage - 1}, keyword=${keyword})}"
+                class="bg-gray-900 border border-gray-800 px-4 py-2 rounded-lg text-white">
+                Previous
+            </a>
+
+            <span th:if="${totalPages > 0}" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a th:href="@{/user/view-contacts(page=${i}, keyword=${keyword})}" th:text="${i+1}" th:class="${i == currentPage}
+       ? 'bg-blue-500 px-4 py-2 rounded-lg text-white'
+       : 'bg-gray-900 border border-gray-800 px-4 py-2 rounded-lg text-white'">
+                    1
+                </a>
+            </span>
+
+
+            <a th:if="${currentPage<totalPages - 1}"
+                th:href="@{/user/view-contacts(page=${currentPage + 1}, keyword=${keyword})}"
+                class="bg-gray-900 border border-gray-800 px-4 py-2 rounded-lg text-white">
+                Next
+            </a>
+
+        </div>
+    </section>
+</body>
+
+</html>

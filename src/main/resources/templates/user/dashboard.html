@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::section},~{::title})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <section id="content" class="min-h-screen bg-gray-950 p-2 sm:p-4 lg:p-6">
+
+        <!-- Welcome Section -->
+        <div
+            class="bg-gray-900 border border-gray-800 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+
+            <div>
+
+                <h1 class="text-3xl md:text-4xl font-bold text-white">
+                    Welcome Back, <span data-th-text="${loggedInUser.name}" class="text-blue-400"></span>
+                </h1>
+
+                <p class="text-gray-400 mt-3 text-lg">
+                    Manage your contacts efficiently and stay organized.
+                </p>
+
+            </div>
+
+            <div class="bg-gray-950 border border-gray-800 rounded-2xl p-4 flex items-center gap-4">
+
+                <img src="https://i.pravatar.cc/100" alt="Profile"
+                    class="w-14 h-14 rounded-full border-2 border-blue-500">
+
+                <div>
+
+                    <p class="text-white font-semibold">
+                        <span data-th-text="${loggedInUser.name}"></span>
+                    </p>
+
+                    <p class="text-gray-400 text-sm">
+                        <span data-th-text="${currentDate}"></span>
+                    </p>
+
+                    <p class="text-blue-400 text-sm">
+                        <span data-th-text="${currentTime}"></span>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Statistics -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 hover:border-blue-500 transition">
+
+                <p class="text-gray-400">Total Contacts</p>
+
+                <h2 class="text-3xl md:text-4xl font-bold text-amber-300 mt-3">
+                    <span data-th-text="${totalContacts}">0</span>
+                </h2>
+
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 hover:border-blue-500 transition">
+
+                <p class="text-gray-400">Favorite Contacts</p>
+
+                <h2 class="text-3xl md:text-4xl font-bold text-green-500 mt-3">
+                    15
+                </h2>
+
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 hover:border-blue-500 transition">
+
+                <p class="text-gray-400">Groups</p>
+
+                <h2 class="text-3xl md:text-4xl font-bold text-red-400 mt-3">
+                    8
+                </h2>
+
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 hover:border-blue-500 transition">
+
+                <p class="text-gray-400">Recent Added</p>
+
+                <h2 class="text-3xl md:text-4xl font-bold text-orange-500 mt-3">
+                    5
+                </h2>
+
+            </div>
+
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mt-8">
+
+            <h2 class="text-2xl font-semibold text-white mb-5">
+                Quick Actions
+            </h2>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 lg:gap-5 gap-4">
+
+                <a data-th-href="@{'/user/add-contact'}"
+                    class="flex justify-center items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white p-5 rounded-2xl font-medium transition">
+
+                    <i class="fa-solid fa-plus"></i> Add Contact
+
+                </a>
+
+                <a data-th-href="@{'/user/view-contacts'}"
+                    class="flex justify-center items-center gap-2 bg-gray-900 border border-gray-800 hover:border-blue-500 text-white p-5 rounded-2xl transition">
+
+                    <i class="fa-solid fa-folder-open"></i> View Contacts
+
+                </a>
+
+                <a data-th-href="@{'/user/create-group'}"
+                    class="flex justify-center items-center gap-2 bg-gray-900 border border-gray-800 hover:border-blue-500 text-white p-5 rounded-2xl transition">
+
+                    <i class="fa-solid fa-users"></i> Create Group
+
+                </a>
+
+                <a data-th-href="@{'/user/profile'}"
+                    class="flex justify-center items-center gap-2 bg-gray-900 border border-gray-800 hover:border-blue-500 text-white p-5 rounded-2xl transition">
+
+                    <i class="fa-solid fa-gear"></i> Profile Settings
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Contacts -->
+        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 mt-8">
+
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+
+                <h2 class="text-2xl font-semibold text-white">
+                    Recent Contacts
+                </h2>
+
+                <a th:href="@{'/user/view-contacts'}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-xl transition">
+
+                    View All Contacts
+
+                </a>
+
+            </div>
+
+            <div class="overflow-x-auto">
+
+                <table class="w-full">
+
+                    <thead>
+
+                        <tr class="border-b border-gray-800">
+
+                            <th class="text-left py-4 text-gray-400">
+                                Name
+                            </th>
+
+                            <th class="text-left py-4 text-gray-400">
+                                Email
+                            </th>
+
+                            <th class="text-left py-4 text-gray-400">
+                                Phone
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr class="border-b border-gray-800">
+
+                            <td class="py-4 text-white">
+                                Rahul Sharma
+                            </td>
+
+                            <td class="py-4 text-gray-400">
+                                rahul@gmail.com
+                            </td>
+
+                            <td class="py-4 text-gray-400">
+                                9876543210
+                            </td>
+
+                        </tr>
+
+                        <tr class="border-b border-gray-800">
+
+                            <td class="py-4 text-white">
+                                Aman Verma
+                            </td>
+
+                            <td class="py-4 text-gray-400">
+                                aman@gmail.com
+                            </td>
+
+                            <td class="py-4 text-gray-400">
+                                9876543211
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+</body>
+
+</html>

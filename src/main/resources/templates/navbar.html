@@ -1,0 +1,131 @@
+<nav th:fragment="navbar" class="fixed top-0 left-0 w-full bg-gray-900 z-50">
+
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
+
+        <div class="flex items-center justify-between h-16">
+
+            <!-- Logo -->
+            <a data-th-href="@{'/'}" class="flex items-center gap-2">
+
+                <div
+                    class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">
+                    S
+                </div>
+
+                <div>
+                    <span class="text-2xl font-bold text-white">
+                        Smart Contact
+                    </span>
+                    <p class="text-gray-400 text-sm">
+                        Manager
+                    </p>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+
+                <a data-th-href="@{'/'}" class="text-gray-200 hover:text-blue-500 transition">
+
+                    Home
+
+                </a>
+
+                <a data-th-href="@{'/about'}" class="text-gray-200 hover:text-blue-500 transition">
+
+                    About
+
+                </a>
+
+                <a data-th-href="@{'/services'}" class="text-gray-200 hover:text-blue-500 transition">
+
+                    Services
+
+                </a>
+
+                <a data-th-href="@{'/contact'}" class="text-gray-200 hover:text-blue-500 transition">
+
+                    Contact
+
+                </a>
+
+            </div>
+
+            <!-- Right Side -->
+            <div class="hidden md:flex items-center gap-4">
+
+                <!-- Signup/Signin Button -->
+                <a data-th-href="@{'/login'}"
+                    class="text-white hover:text-blue-500 border border-gray-600 hover:border-blue-600 px-5 py-2 rounded-xl font-medium transition">
+
+                    Sign in
+
+                </a>
+                <a data-th-href="@{'/register'}"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-medium transition">
+
+                    Sign up
+
+                </a>
+
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-3xl text-white">
+
+                ☰
+
+            </button>
+
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-t border-gray-700">
+
+        <div class="flex flex-col px-6 py-4 gap-4">
+
+            <a data-th-href="@{'/'}" class="text-gray-200 hover:text-blue-500">
+
+                Home
+
+            </a>
+
+            <a data-th-href="@{'/about'}" class="text-gray-200 hover:text-blue-500">
+
+                About
+
+            </a>
+
+            <a data-th-href="@{'/services'}" class="text-gray-200 hover:text-blue-500">
+
+                Services
+
+            </a>
+
+            <a data-th-href="@{'/contact'}" class="text-gray-200 hover:text-blue-500">
+
+                Contact
+
+            </a>
+
+            <div class="pt-2">
+
+                <!-- Mobile Signup/Signin Button -->
+                <a data-th-href="@{'/login'}"
+                    class="mr-2 text-white hover:text-blue-500 border border-gray-600 hover:border-blue-600 px-5 py-2 rounded-lg transition">
+
+                    Sign in
+
+                </a>
+                <a data-th-href="@{'/register'}"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition">
+
+                    Sign Up
+
+                </a>
+
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,139 @@
+<div th:fragment="sidebar">
+    <!-- Mobile Menu Button -->
+    <button id="sidebar-menu-btn"
+        class="lg:hidden fixed top-2 left-2 z-50 bg-blue-500 text-white w-9 h-9 rounded-xl shadow-lg">
+
+        <i class="fa-solid fa-bars-staggered"></i>
+
+    </button>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden">
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-50 w-70 h-screen bg-gray-900 border-r border-gray-800 flex flex-col justify-between
+    transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+
+        <!-- Top Section -->
+        <div>
+
+            <!-- Logo -->
+            <div class="flex items-center gap-3 px-6 py-6 border-b border-gray-800">
+
+                <div
+                    class="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-blue-500/20">
+
+                    S
+
+                </div>
+
+                <div>
+
+                    <h2 class="text-white text-xl font-bold">
+                        Smart Contact
+                    </h2>
+
+                    <p class="text-gray-400 text-sm">
+                        Manager
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Menu -->
+            <nav class="mt-6 mb-3 px-4 space-y-3">
+
+                <!-- Dashboard -->
+                <a data-th-href="@{/user/dashboard}" class="flex items-center gap-4 px-3 py-2 rounded-2xl"
+                    data-th-classappend="${activePage=='dashboard'} ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20 font-medium' : 'text-gray-300 hover:bg-gray-800 hover:text-white transition duration-300'">
+
+                    <span class="text-xl"><i class="fa-solid fa-house-chimney-user"></i></span>
+
+                    Dashboard
+
+                </a>
+
+                <!-- Profile -->
+                <a data-th-href="@{/user/profile}" class="flex items-center gap-4 px-3 py-2 rounded-2xl"
+                    data-th-classappend="${activePage=='profile'} ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20 font-medium' : 'text-gray-300 hover:bg-gray-800 hover:text-white transition duration-300'">
+
+                    <span class="text-xl"><i class="fa-solid fa-user"></i></span>
+
+                    Profile
+
+                </a>
+
+                <!-- Add New Contact -->
+                <a data-th-href="@{/user/add-contact}" class="flex items-center gap-4 px-3 py-2 rounded-2xl"
+                    data-th-classappend="${activePage=='add-contact'} ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20' : 'text-gray-300 hover:bg-gray-800 hover:text-white transition duration-300'">
+
+                    <span class="text-xl"><i class="fa-solid fa-pen-to-square"></i></span>
+
+                    Add New Contact
+
+                </a>
+                <!-- View Contacts -->
+                <a data-th-href="@{/user/view-contacts}" class="flex items-center gap-4 px-3 py-2 rounded-2xl "
+                    data-th-classappend="${activePage=='view-contacts'} ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20 font-medium' : 'text-gray-300 hover:bg-gray-800 hover:text-white transition duration-300'">
+
+                    <span class="text-xl"><i class="fa-solid fa-folder-open"></i></span>
+
+                    View Contacts
+
+                </a>
+
+                <!-- Feedback -->
+                <a data-th-href="@{/user/feedback}" class="flex items-center gap-4 px-3 py-2 rounded-2xl"
+                    data-th-classappend="${activePage=='feedback'} ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20 font-medium' : 'text-gray-300 hover:bg-gray-800 hover:text-white transition duration-300'">
+
+                    <span class="text-xl"><i class="fa-solid fa-comment-dots"></i></span>
+
+                    Feedback
+
+                </a>
+
+            </nav>
+
+        </div>
+
+        <!-- Bottom -->
+        <div class="p-4 border-t border-gray-800">
+
+            <!-- User -->
+            <div class="flex items-center gap-3 bg-gray-800 rounded-2xl p-3">
+
+                <img src="https://i.pravatar.cc/100" alt="Profile"
+                    class="w-12 h-12 rounded-full object-cover border-2 border-blue-500">
+
+                <div>
+
+                    <h3 th:text="${loggedInUser.name}" class="text-white font-semibold"></h3>
+
+                    <p class="text-gray-400 text-sm">
+                        User
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Logout -->
+            <a data-th-href="@{/logout}"
+                class="flex items-center gap-2 justify-center mt-4 px-3 py-2 rounded-2xl bg-red-500 hover:bg-red-600 text-white font-medium shadow-lg shadow-red-500/20">
+
+                <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+
+            </a>
+
+            <!-- <a data-th-href="@{/logout}"
+                class="w-full mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-2xl font-medium transition duration-300 shadow-lg shadow-red-500/20">
+
+                Sign Out
+
+            </a> -->
+        </div>
+
+    </aside>
+</div>

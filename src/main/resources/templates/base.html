@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="parent(content, title)" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title data-th-replace="${title}">SCM</title>
+
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" data-th-href="@{'/css/output.css'}" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" data-th-href="@{'/css/input.css'}" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7f79ea2490.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body class="bg-gray-900">
+
+    <!-- Navbar -->
+
+    <div data-th-if="${loggedInUser == null}">
+        <div data-th-if="${showNavbar}">
+            <div data-th-replace="~{navbar :: navbar}"></div>
+        </div>
+    </div>
+    <div data-th-if="${loggedInUser != null}">
+        <div data-th-replace="~{user/sidebar :: sidebar}"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div data-th-if="${loggedInUser == null}">
+            <section data-th-replace="${content}"></section>
+        </div>
+        <div data-th-if="${loggedInUser != null}" class="lg:pl-[240px]">
+            <section data-th-replace="${content}"></section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer data-th-if="${loggedInUser == null}" class="text-center p-4 text-gray-600 dark:text-gray-300">
+
+        <p>&copy; 2026 Smart Contact Manager</p>
+
+    </footer>
+
+    <!-- Sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/script.js"></script>
+</body>
+
+</html>

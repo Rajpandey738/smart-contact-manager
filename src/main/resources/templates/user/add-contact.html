@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::section}, ~{::title})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Contact</title>
+</head>
+
+<body>
+    <section id="content" class="min-h-screen bg-gray-950 p-2 sm:p-4 lg:p-6">
+        <div data-th-replace="message :: messageBox"></div>
+
+        <div class="max-w-4xl mx-auto bg-gray-900 border border-gray-800 rounded-3xl p-8">
+
+            <!-- Header -->
+            <div class="mb-8">
+
+                <h1 class="text-3xl font-bold text-white">
+                    Add New Contact
+                </h1>
+
+                <p class="text-gray-400 mt-2">
+                    Save and manage your contact information securely.
+                </p>
+
+            </div>
+
+            <!-- Form -->
+            <form class="space-y-6" th:action="@{/user/add-contact}" method="post" th:object="${contactForm}">
+
+                <!-- Name + Email -->
+                <div class="grid md:grid-cols-2 gap-6">
+
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-medium">
+                            Full Name *
+                        </label>
+
+                        <input type="text" required placeholder="Enter contact name" th:field="*{name}"
+                            class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-medium">
+                            Email Address
+                        </label>
+
+                        <input type="email" placeholder="Enter email" th:field="*{email}"
+                            class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none">
+                    </div>
+
+                </div>
+
+                <!-- Phone + Address -->
+                <div class="grid md:grid-cols-2 gap-6">
+
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-medium">
+                            Phone Number *
+                        </label>
+
+                        <input type="tel" required placeholder="Enter phone number" th:field="*{phone}"
+                            class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-medium">
+                            Address
+                        </label>
+
+                        <input type="text" placeholder="Enter address" th:field="*{address}"
+                            class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none">
+                    </div>
+
+                </div>
+
+                <!-- Profile Pic -->
+                <div>
+
+                    <label class="block text-gray-300 mb-2 font-medium">
+                        Profile Picture URL
+                    </label>
+
+                    <input type="url" placeholder="Paste image URL" th:field="*{profilePic}"
+                        class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none">
+
+                </div>
+
+                <!-- Description -->
+                <div>
+
+                    <label class="block text-gray-300 mb-2 font-medium">
+                        Description
+                    </label>
+
+                    <textarea rows="5" placeholder="Write additional information..." th:field="*{description}"
+                        class="w-full resize-none bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none"></textarea>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-end">
+
+                    <button type="reset"
+                        class="px-6 py-3 rounded-xl border border-gray-700 text-gray-300 hover:bg-gray-800 transition">
+
+                        Reset
+
+                    </button>
+
+                    <button type="submit"
+                        class="px-8 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-medium shadow-lg shadow-blue-500/20 transition">
+
+                        Add Contact
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+</body>
+
+</html>
